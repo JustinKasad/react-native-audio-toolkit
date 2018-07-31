@@ -151,16 +151,16 @@ RCT_EXPORT_METHOD(prepare:(nonnull NSNumber*)playerId
         callback(@[dict]);
         return;
     }
-    
+
     // Prepare the player
     // Wait until player is ready
     while (player.status == AVPlayerStatusUnknown) {
         [NSThread sleepForTimeInterval:0.01f];
     }
-    
+
     //make sure loadedTimeRanges is not null
     while (player.currentItem.loadedTimeRanges.firstObject == nil){
-        if (item.status == AVPlayerStatusFailed) {
+        if (player.currentItem.status == AVPlayerStatusFailed) {
             NSString *errMsg = [NSString stringWithFormat:@"Could not initialize player, error: AVPlayerStatusFailed"];
             NSDictionary* dict = [Helpers errObjWithCode:@"preparefail"
                                              withMessage:errMsg];
